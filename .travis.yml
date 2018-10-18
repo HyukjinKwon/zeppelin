@@ -80,7 +80,7 @@ before_script:
   - if [[ -n $LIVY_VER ]]; then export LIVY_HOME=`pwd`/livy-$LIVY_VER-bin; fi
   - if [[ -n $LIVY_VER ]]; then export SPARK_HOME=`pwd`/spark-$SPARK_VER-bin-hadoop$HADOOP_VER; fi
   - if [[ -n $SPARK_VER ]]; then export SPARK_HOME=`pwd`/spark-$SPARK_VER-bin-hadoop$HADOOP_VER; fi
-  - if [[ -n $SPARK_VER ]]; then echo "export SPARK_HOME=`pwd`/spark-$SPARK_VER-bin-hadoop$HADOOP_VER" > conf/zeppelin-env.sh; fi
+  - if [[ -n $SPARK_VER ]]; then echo "export SPARK_HOME=`pwd`/spark-$SPARK_VER-bin-hadop$HADOOP_VER" > conf/zeppelin-env.sh; fi
   - echo "export ZEPPELIN_HELIUM_REGISTRY=helium" >> conf/zeppelin-env.sh
   - echo "export SPARK_PRINT_LAUNCH_COMMAND=true" >> conf/zeppelin-env.sh
   - export SPARK_PRINT_LAUNCH_COMMAND=true
