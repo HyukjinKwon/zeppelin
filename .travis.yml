@@ -82,7 +82,7 @@ before_script:
   # - if [[ -n $SPARK_VER ]]; then travis_retry ./testing/downloadSpark.sh $SPARK_VER $HADOOP_VER; fi
   - curl -O https://dist.apache.org/repos/dist/dev/spark/v2.4.0-rc3-bin/spark-2.4.0-bin-hadoop2.7.tgz
   - tar xzvf spark-2.4.0-bin-hadoop2.7.tgz
-  - curl -O https://www.apache.org/dyn/closer.lua/spark/spark-2.3.2/spark-2.3.2-bin-hadoop2.7.tgz
+  - curl -O http://mirrors.advancedhosters.com/apache/spark/spark-2.3.2/spark-2.3.2-bin-hadoop2.7.tgz
   - tar xzvf spark-2.3.2-bin-hadoop2.7.tgz
   - if [[ -n $LIVY_VER ]]; then ./testing/downloadLivy.sh $LIVY_VER; fi
   - if [[ -n $LIVY_VER ]]; then export LIVY_HOME=`pwd`/livy-$LIVY_VER-bin; fi
