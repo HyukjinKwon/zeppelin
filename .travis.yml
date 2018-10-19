@@ -45,14 +45,10 @@ env:
 
 matrix:
   include:
-    # Test spark module for 2.2.0 with scala 2.11
+    # Test spark module for 2.3.2 with scala 2.11
     - jdk: "oraclejdk8"
       dist: trusty
-      env: BUILD_PLUGINS="false" PYTHON="2" HADOOP_VER="2.7" SPARK_VER="2.2.0" SCALA_VER="2.11" PROFILE="-Pspark-2.2 -Phadoop2 -Pscala-2.11" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=org.apache.zeppelin.spark.*,org.apache.zeppelin.rinterpreter.*,org.apache.spark.api.r.* -DfailIfNoTests=false"
-    # Test spark module for 2.3.0 with scala 2.11
-    - jdk: "oraclejdk8"
-      dist: trusty
-      env: BUILD_PLUGINS="false" PYTHON="2" HADOOP_VER="2.7" SPARK_VER="2.3.0" SCALA_VER="2.11" PROFILE="-Pspark-2.2 -Phadoop2 -Pscala-2.11" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=org.apache.zeppelin.spark.*,org.apache.zeppelin.rinterpreter.*,org.apache.spark.api.r.* -DfailIfNoTests=false"
+      env: BUILD_PLUGINS="false" PYTHON="2" HADOOP_VER="2.7" SPARK_VER="2.3.2" SCALA_VER="2.11" PROFILE="-Pspark-2.2 -Phadoop2 -Pscala-2.11" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=org.apache.zeppelin.spark.*,org.apache.zeppelin.rinterpreter.*,org.apache.spark.api.r.* -DfailIfNoTests=false"
     # Test spark module for 2.4.0 with scala 2.11
     - jdk: "oraclejdk8"
       dist: trusty
@@ -83,9 +79,11 @@ install:
   - if [ $BUILD_PLUGINS == "true" ]; then echo "mvn clean package -pl zeppelin-plugins -amd -B"; mvn clean package -pl zeppelin-plugins -amd -B; fi
 
 before_script:
-  - if [[ -n $SPARK_VER ]]; then travis_retry ./testing/downloadSpark.sh $SPARK_VER $HADOOP_VER; fi
+  # - if [[ -n $SPARK_VER ]]; then travis_retry ./testing/downloadSpark.sh $SPARK_VER $HADOOP_VER; fi
   - curl -O https://dist.apache.org/repos/dist/dev/spark/v2.4.0-rc3-bin/spark-2.4.0-bin-hadoop2.7.tgz
   - tar xzvf spark-2.4.0-bin-hadoop2.7.tgz
+  - curl -O https://www.apache.org/dyn/closer.lua/spark/spark-2.3.2/spark-2.3.2-bin-hadoop2.7.tgz
+  - tar xzvf spark-2.3.2-bin-hadoop2.7.tgz
   - if [[ -n $LIVY_VER ]]; then ./testing/downloadLivy.sh $LIVY_VER; fi
   - if [[ -n $LIVY_VER ]]; then export LIVY_HOME=`pwd`/livy-$LIVY_VER-bin; fi
   - if [[ -n $LIVY_VER ]]; then export SPARK_HOME=`pwd`/spark-$SPARK_VER-bin-hadoop$HADOOP_VER; fi
